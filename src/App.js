@@ -2,7 +2,7 @@ import { Layout } from 'antd';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Error404 } from './pages/Error404';
-import { Movie } from './pages/Movie';
+import { Movie } from './pages/Movie/Movie';
 import { NewMovies } from './pages/NewMovies';
 import { PopularMovies } from './pages/PopularMovies';
 import { SearchMovies } from './pages/SearchMovies';
@@ -19,7 +19,7 @@ function App() {
     <Layout>
       <Router>
 
-        <Header>
+        <Header style={{zIndex: 1}}>
 
           <Menu/>
 
