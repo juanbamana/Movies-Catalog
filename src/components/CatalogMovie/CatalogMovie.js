@@ -1,24 +1,25 @@
 import React from 'react'
+import { memo } from 'react';
 import { Link } from 'react-router-dom'
-import { Col, Card, Icon } from 'antd'
-import {EyeOutlined} from '@ant-design/icons'
+import { Col, Card } from 'antd'
+import { EyeOutlined } from '@ant-design/icons'
 import './CatalogMovie.scss'
-export const CatalogMovie = ({ movies }) => {
 
-    const { results } = movies
+import { PropTypes } from 'prop-types';
+export const CatalogMovie = (({ movies: { results } }) => {
+
 
 
     return results.map(movie => (
         <Col key={movie.id} xs={4} className="movie-catalog">
-          <MovieCard movie={movie} />
+            <MovieCard key={movie.id} movie={movie} />
         </Col>
-      ));
-    }
+    ));
+})
 
 
-function MovieCard({ movie }) {
+const MovieCard = memo(({ movie: { id, title, poster_path } }) => {
 
-    const {  id, title, poster_path  } = movie
     const { Meta } = Card;
     const posterPath = `https://image.tmdb.org/t/p/original${poster_path}`
 
@@ -36,4 +37,28 @@ function MovieCard({ movie }) {
             </Card>
         </Link>
     )
+
+
+
 }
+)
+
+MovieCard.propTypes = {
+    movie: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        poster_path: PropTypes.string.isRequired
+    }).isRequired
+};
+
+CatalogMovie.propTypes = {
+    movies: PropTypes.shape({
+        results: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                title: PropTypes.string.isRequired,
+                poster_path: PropTypes.string.isRequired
+            })
+        ).isRequired
+    }).isRequired
+};

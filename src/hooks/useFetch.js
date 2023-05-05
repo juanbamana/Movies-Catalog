@@ -13,7 +13,7 @@ export const useFetch = (url, options) => {
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(url)
+                const res = await fetch(url, options)
                 const json = await res.json()
                 setResult(json)
                 setLoading(false)
@@ -24,7 +24,7 @@ export const useFetch = (url, options) => {
             }
         })()
 
-    }, [])
+    }, [url, options])
 
     return {result, loading, error}
 

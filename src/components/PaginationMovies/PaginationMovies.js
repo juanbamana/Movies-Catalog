@@ -1,14 +1,12 @@
 import React from 'react'
 import Pagination from 'rc-pagination'
 import './PaginationMovies.scss'
+
+
+
 export const PaginationMovies = ({ currentPage, totalItems, onChangePage }) => {
 
-
-
-
-
   return (
-
 
     <Pagination
       className='pagination'

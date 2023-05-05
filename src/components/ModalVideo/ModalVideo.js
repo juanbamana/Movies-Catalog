@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import ReactPlayer from'react-player'
 import {Modal} from 'antd'
 import "./ModalVideo.scss";
+import {PropTypes} from 'prop-types';
 
-export const ModalVideo = ({ videoKey, videoPlatform, isOpen, close}) => {
+ export const ModalVideo = memo(({ videoKey, videoPlatform, isOpen, close}) => {
     const [urlVideo, setUrlVideo] = useState(null);
   
     useEffect(() => {
-      switch (videoPlatform) {
-        case "YouTube":
-          setUrlVideo(`https://youtu.be/${videoKey}`);
-          break;
-        default:
-          break;
-      }
+      const videoPlatformUrls = {
+        "YouTube": `https://youtu.be/${videoKey}`,
+        // add more video platforms here
+      };
+      setUrlVideo(videoPlatformUrls[videoPlatform]);
     }, [videoKey, videoPlatform]);
   
     return (
@@ -27,5 +26,12 @@ export const ModalVideo = ({ videoKey, videoPlatform, isOpen, close}) => {
         <ReactPlayer url={urlVideo} controls />
       </Modal>
     );
-  }
+  })
+
+  ModalVideo.propTypes = {
+    videoKey: PropTypes.string.isRequired,
+    videoPlatform: PropTypes.string.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    close: PropTypes.func.isRequired,
+  };
 

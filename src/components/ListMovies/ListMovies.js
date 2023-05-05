@@ -4,15 +4,19 @@ import { Loading } from '../Loading/Loading';
 import { Link } from'react-router-dom';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import './ListMovies.scss';
+import {PropTypes} from 'prop-types';
+import { memo } from 'react';
 
 
 
-export const ListMovies = ({ movies, title }) => {
-
-    if(movies.loading || !movies.result){
-
-        return <Loading/>
+export const ListMovies = ({ movies: { loading, result = { results: [] } } = {}, title }) => {
+    if (loading || !result.results.length) {
+      return <Loading />;
     }
+
+    if (!result.results.length) {
+        return <div>No movies to display</div>;
+      }
     return (
 
 
@@ -21,7 +25,7 @@ export const ListMovies = ({ movies, title }) => {
             size='default'
             header={<h2>{title}</h2>}
             bordered
-            dataSource={movies.result.results}
+            dataSource={result.results}
             renderItem={movie => <RenderMovie movie={movie} />}
         />
     )
@@ -29,9 +33,8 @@ export const ListMovies = ({ movies, title }) => {
 
 
 
-function RenderMovie({ movie }) {
+const RenderMovie = memo(({ movie: { poster_path, title, id } }) => {
 
-    const { poster_path, title, id} = movie
 
         const posterPath = `https://image.tmdb.org/t/p/original${poster_path}`
 
@@ -45,11 +48,27 @@ function RenderMovie({ movie }) {
             title={<Link to={`/movie/${id}`}>{title}</Link>}
             />
             <Link to={`/movie/${id}`}>
-            <Button type='primary' shape='square' icon={<ArrowRightOutlined/>}></Button>
+            <Button type='primary' shape='square' icon={<ArrowRightOutlined/>}/>
             </Link>
 
         </List.Item>
     )
-}
+})
 
 
+ListMovies.propTypes = {
+    movies: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      result: PropTypes.shape({
+        results: PropTypes.arrayOf(PropTypes.object).isRequired,
+      }).isRequired,
+    }).isRequired,
+    title: PropTypes.string.isRequired,
+  };
+  RenderMovie.propTypes = {
+    movie: PropTypes.shape({
+        poster_path: PropTypes.string,
+        title: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+    }).isRequired,
+};

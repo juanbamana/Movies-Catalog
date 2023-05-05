@@ -31,8 +31,7 @@ export const SliderMovies = ({ movies }) => {
     )
 }
 
-function Movie({ movie }) {
-    const { id, title, overview, backdrop_path } = movie
+const Movie = ({ movie: { id, title, overview, backdrop_path } }) => {
 
 
     const backdropPath = ` https://image.tmdb.org/t/p/w500/${backdrop_path}`
