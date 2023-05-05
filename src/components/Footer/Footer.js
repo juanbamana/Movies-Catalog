@@ -11,7 +11,7 @@ export const Footer = () => {
 
   return (
     <Footer className='footer'>
-      <p> @ Juan Bautista Martin Navarro 2023</p>
+<p> @ Juan Bautista Martin Navarro {new Date().getFullYear()}</p>
 
     </Footer>
   )

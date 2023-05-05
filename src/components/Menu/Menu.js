@@ -23,7 +23,7 @@ export const Menu = () => {
                 </MenuTop.Item>
 
                 <MenuTop.Item key="3">
-                    <Link to="/popularMovies">Populares</Link>
+                    <Link to="/popularMovies">Mejores Peliculas</Link>
                 </MenuTop.Item>
 
                 <MenuTop.Item key="4">
