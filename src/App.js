@@ -1,11 +1,11 @@
 import { Layout } from 'antd';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { Error404 } from './pages/Error404';
+import { Error404 } from './pages/Error404/Error404';
 import { Movie } from './pages/Movie/Movie';
 import { NewMovies } from './pages/NewMovies';
 import { PopularMovies } from './pages/PopularMovies';
-import { SearchMovies } from './pages/SearchMovies';
+import  SearchMovies  from './pages/SearchMovies/SearchMovies';
 import {Menu} from './components/Menu/Menu'
 
 
